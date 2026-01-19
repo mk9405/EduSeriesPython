@@ -1,120 +1,181 @@
 """
-Python File Handling
-===================
+Python File Handling - Complete Notes
+====================================
+
+Definition:
+-----------
+File handling in Python is the process of creating, opening, reading,
+writing, and deleting files stored on disk. It allows programs to store
+data permanently.
 
 This file covers:
-- Opening files
-- Reading files
-- Writing files
-- Creating new files
-- Deleting files and folders
+1. Opening files
+2. Reading files
+3. Writing files
+4. Creating new files
+5. Deleting files and folders
 """
 
 import os
 
-# =========================
-# 1. Opening Files
-# =========================
-# open(filename, mode)
-# Modes:
-# "r" - Read (default), error if file doesn't exist
-# "a" - Append, creates file if not exists
-# "w" - Write, creates file if not exists
-# "x" - Create, error if file exists
-# "t" - Text (default)
-# "b" - Binary
+# =====================================================
+# 1. OPENING FILES
+# =====================================================
 
-# Open a file for reading (default)
-f = open("demofile.txt", "r")  # or "rt"
-print("Read full file:")
+"""
+open() Function:
+----------------
+The open() function is used to open a file and returns a file object.
+
+Syntax:
+    open(filename, mode)
+
+Common Modes:
+-------------
+"r"  - Read (default), error if file does not exist
+"a"  - Append, creates file if it does not exist
+"w"  - Write, overwrites existing content
+"x"  - Create, error if file already exists
+"t"  - Text mode (default)
+"b"  - Binary mode
+"""
+
+# Open file in read mode
+f = open("demofile.txt", "r")
+print("Reading full file:")
 print(f.read())
-f.close()
+f.close()  # Always close the file
 
-# Using with statement (automatically closes the file)
-with open("demofile.txt") as f:
-    print("Using with statement:")
+# Using 'with' statement (recommended)
+# Automatically closes the file
+with open("demofile.txt", "r") as f:
+    print("\nUsing with statement:")
     print(f.read())
 
-# Open file from a different path
-# with open("D:\\myfiles\\welcome.txt") as f:
-#     print(f.read())
+# =====================================================
+# 2. READING PARTS OF A FILE
+# =====================================================
 
-# =========================
-# 2. Reading Parts of a File
-# =========================
-with open("demofile.txt") as f:
-    print("First 5 characters:")
+"""
+Reading Methods:
+----------------
+read(n)      -> Reads n characters
+readline()   -> Reads one line
+for loop     -> Reads file line by line
+"""
+
+# Read first 5 characters
+with open("demofile.txt", "r") as f:
+    print("\nFirst 5 characters:")
     print(f.read(5))
 
-# Read one line
-with open("demofile.txt") as f:
-    print("First line:")
+# Read first line
+with open("demofile.txt", "r") as f:
+    print("\nFirst line:")
     print(f.readline())
 
-# Read two lines
-with open("demofile.txt") as f:
-    print("First two lines:")
+# Read first two lines
+with open("demofile.txt", "r") as f:
+    print("\nFirst two lines:")
     print(f.readline())
     print(f.readline())
 
 # Loop through file line by line
-with open("demofile.txt") as f:
-    print("All lines:")
+with open("demofile.txt", "r") as f:
+    print("\nAll lines:")
     for line in f:
-        print(line, end="")  # avoid extra newlines
+        print(line, end="")
 
-# =========================
-# 3. Writing to Files
-# =========================
-# Append content to existing file
+# =====================================================
+# 3. WRITING TO FILES
+# =====================================================
+
+"""
+Writing Modes:
+--------------
+"a" - Append content to the end of file
+"w" - Write content (overwrites existing data)
+"""
+
+# Append to file
 with open("demofile.txt", "a") as f:
     f.write("\nNow the file has more content!")
 
 # Read after appending
-with open("demofile.txt") as f:
+with open("demofile.txt", "r") as f:
     print("\nAfter appending:")
     print(f.read())
 
-# Overwrite existing content
+# Overwrite file content
 with open("demofile.txt", "w") as f:
     f.write("Woops! I have deleted the content!")
 
 # Read after overwriting
-with open("demofile.txt") as f:
+with open("demofile.txt", "r") as f:
     print("\nAfter overwriting:")
     print(f.read())
 
-# =========================
-# 4. Creating New Files
-# =========================
-# "x" - create, error if exists
+# =====================================================
+# 4. CREATING NEW FILES
+# =====================================================
+
+"""
+File Creation Modes:
+--------------------
+"x" - Creates file, error if file exists
+"w" - Creates file if it does not exist
+"a" - Creates file if it does not exist
+"""
+
+# Create file using "x" mode
 try:
     f = open("myfile.txt", "x")
-    print("File myfile.txt created successfully")
+    print("\nFile myfile.txt created successfully")
 except FileExistsError:
-    print("File already exists")
+    print("\nFile already exists")
 finally:
-    f.close() if 'f' in locals() else None
+    if 'f' in locals():
+        f.close()
 
-# "w" or "a" can also create file if not exists
+# Create file using "w" mode
 with open("anotherfile.txt", "w") as f:
     f.write("This file was created using 'w' mode")
 
-# =========================
-# 5. Deleting Files
-# =========================
-# Delete file using os.remove()
+# =====================================================
+# 5. DELETING FILES AND FOLDERS
+# =====================================================
+
+"""
+os Module:
+----------
+Used to interact with the operating system.
+"""
+
+# Delete a file safely
 if os.path.exists("demofile.txt"):
     os.remove("demofile.txt")
-    print("demofile.txt deleted successfully")
+    print("\ndemofile.txt deleted successfully")
 else:
-    print("demofile.txt does not exist")
+    print("\ndemofile.txt does not exist")
 
-# Delete folder using os.rmdir()
-# Note: Only empty folders can be deleted
+# Delete a folder (must be empty)
 folder_name = "myfolder"
 if os.path.exists(folder_name):
     os.rmdir(folder_name)
     print(f"Folder '{folder_name}' deleted successfully")
 else:
     print(f"Folder '{folder_name}' does not exist")
+
+# =====================================================
+# IMPORTANT POINTS
+# =====================================================
+
+"""
+Key Takeaways:
+--------------
+1. Always close files or use 'with' statement
+2. Use 'r' for reading, 'a' for appending, 'w' for writing
+3. 'x' mode is safest for creating new files
+4. Check existence before deleting files
+5. Reading line by line is memory efficient
+"""
