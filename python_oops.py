@@ -1,307 +1,441 @@
 """
-Python Object-Oriented Programming (OOP)
-========================================
+====================================================================
+PYTHON OBJECT-ORIENTED PROGRAMMING (OOP) – DEEP & DETAILED EXPLANATION
+====================================================================
 
-This file covers:
-- Classes & Objects
-- __init__() method
-- self parameter
-- Class properties & methods
-- Inheritance
-- Polymorphism
-- Encapsulation
-- Inner classes
+WHAT IS OOP?
+------------
+Object-Oriented Programming (OOP) is a programming paradigm that
+organizes code using "objects" and "classes", similar to real-world
+entities.
+
+OOP means writing programs using real-world things.
+
+Real world example:
+-------------------
+Car
+ - Properties: color, brand
+ - Actions: drive(), stop()
+
+In Python:
+----------
+Properties → variables
+Actions    → methods
+
+WHY OOP?
+--------
+✔ Models real-world problems easily
+✔ Code reusability
+✔ Better structure and maintenance
+✔ Used in real frameworks (Django, Flask, FastAPI)
+
+OOP HAS 4 MAIN PILLARS:
+----------------------
+1. Encapsulation
+2. Inheritance
+3. Polymorphism
+4. Abstraction (conceptual – not directly shown here)
+
+This file covers concepts step-by-step with executable examples.
 """
 
-# =========================
-# 1. Classes and Objects
-# =========================
-# Classes are blueprints for creating objects. Objects are instances of classes.
+print("=" * 70)
+print("PYTHON OOP – DETAILED WALKTHROUGH")
+print("=" * 70)
 
-# Example: Create a class with a property
-class MyClass:
-    x = 5
 
-# Create objects from the class
-p1 = MyClass()
-p2 = MyClass()
-p3 = MyClass()
+# ====================================================================
+# 1. CLASSES AND OBJECTS
+# ====================================================================
+"""
+CLASS:
+------
+A class is a blueprint or template that defines:
+- Properties (variables)
+- Behavior (methods)
 
-print("Object properties:")
-print(p1.x)
-print(p2.x)
-print(p3.x)
+OBJECT:
+-------
+An object is a real instance created from a class.
 
-# Delete an object
-del p1
-# print(p1.x) # This will cause an error
+REAL-LIFE EXAMPLE:
+------------------
+Class   → Car
+Object  → Toyota, Honda, BMW
+"""
 
-# Empty class with pass
-class Person:
-    pass
+class Car:
+    brand = "Generic"   # class variable
 
-# =========================
-# 2. The __init__() Method
-# =========================
-# __init__() is called automatically when an object is created
-class Person:
-    def __init__(self, name, age=18):
-        self.name = name
-        self.age = age
+# Creating objects (instances)
+car1 = Car()
+car2 = Car()
 
-p1 = Person("Emil")
-p2 = Person("Tobias", 25)
+print("\n1. Classes & Objects")
+print("car1 brand:", car1.brand)
+print("car2 brand:", car2.brand)
 
-print(f"{p1.name} is {p1.age} years old")
-print(f"{p2.name} is {p2.age} years old")
 
-# Multiple parameters
-class Person:
-    def __init__(self, name, age, city, country):
-        self.name = name
-        self.age = age
-        self.city = city
-        self.country = country
+# -------- Example 1 --------
+class Mobile:
+    model = "Unknown"
 
-p1 = Person("Linus", 30, "Oslo", "Norway")
-print(p1.name, p1.age, p1.city, p1.country)
+m1 = Mobile()
+m2 = Mobile()
+print("\n1.2 Multiple Objects")
+print(m1.model, m2.model)
 
-# =========================
-# 3. self Parameter
-# =========================
-# self refers to the instance of the class
+# -------- Example 2 --------
+class Fan:
+    speed = 3
+
+f = Fan()
+print("\n1.3 Default Property")
+print(f.speed)
+
+
+
+# ====================================================================
+# 2. __init__() METHOD (CONSTRUCTOR)
+# ====================================================================
+"""
+__init__():
+-----------
+- Automatically called when object is created
+- Used to initialize object data
+- Each object can have different values
+
+SYNTAX:
+-------
+def __init__(self, parameters):
+"""
 
 class Person:
     def __init__(self, name, age):
-        self.name = name
+        self.name = name   # instance variable
         self.age = age
-
-    def greet(self):
-        print("Hello, my name is " + self.name)
 
 p1 = Person("Emil", 25)
-p1.greet()
+p2 = Person("Tobias", 30)
 
-# Access multiple properties
-class Car:
-    def __init__(self, brand, model, year):
-        self.brand = brand
-        self.model = model
-        self.year = year
+print("\n2. Constructor (__init__)")
+print(p1.name, p1.age)
+print(p2.name, p2.age)
 
-    def display_info(self):
-        print(f"{self.year} {self.brand} {self.model}")
+# -------- Example 1 --------
+class Student:
+    def __init__(self, name, age):
+        self.name = name
+        self.age = age
 
-car1 = Car("Toyota", "Corolla", 2020)
-car1.display_info()
+s = Student("Amit", 22)
+print("\n2.2 Multiple values")
+print(s.name, s.age)
 
-# Call one method from another
-class Person:
+# example 2
+
+class Student:
+    def __init__(self, name, age, course):
+        self.name = name
+        self.age = age
+        self.course = course
+
+s1 = Student("Manish", 22, "Python")
+print("\nExample 2:")
+print(s1.name, s1.age, s1.course)
+
+# example 3
+
+class Employee:
+    def __init__(self, name, salary=20000):
+        self.name = name
+        self.salary = salary
+
+e1 = Employee("Amit")
+e2 = Employee("Rohit", 30000)
+
+print("\nExample 3:")
+print(e1.name, e1.salary)
+print(e2.name, e2.salary)
+
+# EXAMPLE 4: CALCULATION INSIDE __init__()
+class Rectangle:
+    def __init__(self, length, width):
+        self.length = length
+        self.width = width
+        self.area = length * width   # calculated value
+
+r = Rectangle(10, 5)
+
+print("\nExample 4:")
+print("Length:", r.length)
+print("Width:", r.width)
+print("Area:", r.area)
+
+# EXAMPLE 5: __init__() CALLING ANOTHER METHOD
+
+class Greeting:
+    def __init__(self, name):
+        self.name = name
+        self.say_hello()
+
+    def say_hello(self):
+        print("Hello", self.name)
+
+print("\nExample 5:")
+g = Greeting("Alex")
+
+# ====================================================================
+# 3. self KEYWORD (MOST IMPORTANT)
+# ====================================================================
+"""
+self:
+-----
+- Refers to the current object
+- Used to access object variables & methods
+- Without self, Python cannot link variables to objects
+"""
+
+class Student:
     def __init__(self, name):
         self.name = name
 
     def greet(self):
-        return "Hello, " + self.name
+        print("Hello, my name is", self.name)
 
-    def welcome(self):
-        message = self.greet()
-        print(message + "! Welcome!")
+s1 = Student("Alex")
+s1.greet()
 
-p1 = Person("Tobias")
-p1.welcome()
 
-# =========================
-# 4. Class Properties
-# =========================
-# Instance vs Class properties
-class Person:
-    species = "Human"  # Class property
+# ====================================================================
+# 4. INSTANCE VARIABLES vs CLASS VARIABLES
+# ====================================================================
+"""
+INSTANCE VARIABLE:
+------------------
+- Belongs to object
+- Different for each object
+
+CLASS VARIABLE:
+---------------
+- Belongs to class
+- Shared by all objects
+"""
+
+class Employee:
+    company = "Google"   # class variable
 
     def __init__(self, name):
-        self.name = name  # Instance property
+        self.name = name # instance variable
 
-p1 = Person("Emil")
-p2 = Person("Tobias")
-print(p1.name, p1.species)
-print(p2.name, p2.species)
+e1 = Employee("Amit")
+e2 = Employee("Rohit")
 
-# Modify class property
-Person.species = "Homo sapiens"
-print(p1.species)
-print(p2.species)
+print("\n4. Instance vs Class Variables")
+print(e1.name, e1.company)
+print(e2.name, e2.company)
 
-# Add new property to object
-p1.age = 25
-p1.city = "Oslo"
-print(p1.name, p1.age, p1.city)
+# Changing class variable
+Employee.company = "Microsoft"
+print(e1.company)
+print(e2.company)
 
-# =========================
-# 5. Class Methods
-# =========================
-class Person:
-    def __init__(self, name, age):
-        self.name = name
-        self.age = age
 
-    def get_info(self):
-        return f"{self.name} is {self.age} years old"
+# ====================================================================
+# 5. METHODS IN CLASS
+# ====================================================================
+"""
+METHOD:
+-------
+A function defined inside a class.
+Used to perform actions using object data.
+"""
 
-    def celebrate_birthday(self):
-        self.age += 1
-        print(f"Happy birthday! You are now {self.age}")
+class BankAccount:
+    def __init__(self, owner, balance):
+        self.owner = owner
+        self.balance = balance
 
-p1 = Person("Linus", 25)
-p1.celebrate_birthday()
-p1.celebrate_birthday()
+    def deposit(self, amount):
+        self.balance += amount
+        print("Deposited:", amount)
 
-# __str__ method
-class Person:
-    def __init__(self, name, age):
-        self.name = name
-        self.age = age
+    def withdraw(self, amount):
+        if amount <= self.balance:
+            self.balance -= amount
+            print("Withdrawn:", amount)
+        else:
+            print("Insufficient balance")
+
+    def show_balance(self):
+        print("Balance:", self.balance)
+
+account = BankAccount("Manish", 1000)
+account.deposit(500)
+account.withdraw(300)
+account.show_balance()
+
+
+# ====================================================================
+# 6. __str__() METHOD
+# ====================================================================
+"""
+__str__():
+----------
+- Controls how object is printed
+- Makes output human-readable
+"""
+
+class Book:
+    def __init__(self, title, price):
+        self.title = title
+        self.price = price
 
     def __str__(self):
-        return f"{self.name} ({self.age})"
+        return f"Book: {self.title}, Price: ₹{self.price}"
 
-p1 = Person("Tobias", 36)
-print(p1)
+b1 = Book("Python Basics", 399)
+print("\n6. __str__ Method")
+print(b1)
 
-# Playlist example with multiple methods
-class Playlist:
+
+# ====================================================================
+# 7. INHERITANCE
+# ====================================================================
+"""
+INHERITANCE:
+------------
+- One class acquires properties of another class
+- Parent → Child
+
+BENEFITS:
+---------
+✔ Code reuse
+✔ Less duplication
+"""
+
+class Person:
     def __init__(self, name):
         self.name = name
-        self.songs = []
 
-    def add_song(self, song):
-        self.songs.append(song)
-        print(f"Added: {song}")
+    def show_name(self):
+        print("Name:", self.name)
 
-    def remove_song(self, song):
-        if song in self.songs:
-            self.songs.remove(song)
-            print(f"Removed: {song}")
+class Teacher(Person):
+    def __init__(self, name, subject):
+        super().__init__(name)
+        self.subject = subject
 
-    def show_songs(self):
-        print(f"Playlist '{self.name}':")
-        for song in self.songs:
-            print(f"- {song}")
+    def show_details(self):
+        print(self.name, "teaches", self.subject)
 
-my_playlist = Playlist("Favorites")
-my_playlist.add_song("Bohemian Rhapsody")
-my_playlist.add_song("Stairway to Heaven")
-my_playlist.show_songs()
+t = Teacher("Ravi", "Math")
+print("\n7. Inheritance")
+t.show_name()
+t.show_details()
 
-# =========================
-# 6. Inheritance
-# =========================
-class Person:
-    def __init__(self, fname, lname):
-        self.firstname = fname
-        self.lastname = lname
 
-    def printname(self):
-        print(self.firstname, self.lastname)
+# ====================================================================
+# 8. POLYMORPHISM
+# ====================================================================
+"""
+POLYMORPHISM:
+-------------
+Same method name, different behavior.
 
-x = Person("John", "Doe")
-x.printname()
+REAL-LIFE:
+----------
+Same button → different actions in different apps
+"""
 
-# Child class
-class Student(Person):
-    def __init__(self, fname, lname, year):
-        super().__init__(fname, lname)
-        self.graduationyear = year
+class Dog:
+    def sound(self):
+        print("Bark")
 
-    def welcome(self):
-        print("Welcome", self.firstname, self.lastname, "to the class of", self.graduationyear)
+class Cat:
+    def sound(self):
+        print("Meow")
 
-student = Student("Mike", "Olsen", 2019)
-student.welcome()
+class Cow:
+    def sound(self):
+        print("Moo")
 
-# =========================
-# 7. Polymorphism
-# =========================
-# Same method name, different classes
-class Car:
-    def move(self):
-        print("Drive!")
+print("\n8. Polymorphism")
+animals = [Dog(), Cat(), Cow()]
+for animal in animals:
+    animal.sound()
 
-class Boat:
-    def move(self):
-        print("Sail!")
 
-class Plane:
-    def move(self):
-        print("Fly!")
+# ====================================================================
+# 9. ENCAPSULATION (DATA HIDING)
+# ====================================================================
+"""
+ENCAPSULATION:
+--------------
+- Restrict direct access to variables
+- Protect data from misuse
+- Use double underscore (__)
 
-for vehicle in (Car(), Boat(), Plane()):
-    vehicle.move()
+PRIVATE VARIABLE:
+-----------------
+self.__variable
+"""
 
-# =========================
-# 8. Encapsulation
-# =========================
-class Person:
-    def __init__(self, name, age):
-        self.name = name
-        self.__age = age  # Private
+class User:
+    def __init__(self, username, password):
+        self.username = username
+        self.__password = password
 
-    def get_age(self):
-        return self.__age
+    def check_password(self, pwd):
+        return pwd == self.__password
 
-    def set_age(self, age):
-        if age > 0:
-            self.__age = age
-        else:
-            print("Age must be positive")
+u = User("admin", "12345")
+print("\n9. Encapsulation")
+print(u.check_password("12345"))
+# print(u.__password)  # ERROR
 
-p1 = Person("Tobias", 25)
-print(p1.get_age())
-p1.set_age(26)
-print(p1.get_age())
 
-# =========================
-# 9. Inner Classes
-# =========================
-class Outer:
+# ====================================================================
+# 10. INNER CLASSES
+# ====================================================================
+"""
+INNER CLASS:
+------------
+- A class inside another class
+- Used when classes are tightly connected
+"""
+
+class Computer:
     def __init__(self):
-        self.name = "Outer"
+        self.cpu = self.CPU()
 
-    class Inner:
-        def __init__(self, outer):
-            self.outer = outer
+    def start(self):
+        self.cpu.execute()
 
-        def display(self):
-            print(f"Outer class name: {self.outer.name}")
+    class CPU:
+        def execute(self):
+            print("CPU executing instructions")
 
-outer = Outer()
-inner = outer.Inner(outer)
-inner.display()
+print("\n10. Inner Class")
+pc = Computer()
+pc.start()
 
-# Car engine example
-class Car:
-    def __init__(self, brand, model):
-        self.brand = brand
-        self.model = model
-        self.engine = self.Engine()
 
-    class Engine:
-        def __init__(self):
-            self.status = "Off"
+# ====================================================================
+# FINAL SUMMARY
+# ====================================================================
+"""
+KEY TAKEAWAYS:
+--------------
+✔ Class = Blueprint
+✔ Object = Instance
+✔ self = current object
+✔ __init__ = constructor
+✔ Inheritance = reuse
+✔ Polymorphism = flexibility
+✔ Encapsulation = security
+✔ Inner class = strong relationship
+"""
 
-        def start(self):
-            self.status = "Running"
-            print("Engine started")
-
-        def stop(self):
-            self.status = "Off"
-            print("Engine stopped")
-
-    def drive(self):
-        if self.engine.status == "Running":
-            print(f"Driving the {self.brand} {self.model}")
-        else:
-            print("Start the engine first!")
-
-car = Car("Toyota", "Corolla")
-car.drive()
-car.engine.start()
-car.drive()
+print("\nEND OF PYTHON OOP – DETAILED EXPLANATION")
+print("=" * 70)
