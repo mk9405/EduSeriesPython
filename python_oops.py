@@ -66,7 +66,6 @@ Common Mistakes:
     - Misspelling: People often write _init_ (single underscore). It must be __init__ (double underscore on both sides).
 '''
 
-
 '''
 ===================================================================
 Topic 3: Instance vs Class Variables
@@ -104,8 +103,222 @@ Mistakes:
 '''
 
 
-
 '''
+
+"""
+===========================================================
+Topic 4: Inheritance (Single & Multilevel)
+===========================================================
+
+Inheritance allows one class to acquire properties and methods
+from another class.
+
+Parent Class (Base Class):
+    - The class that provides features
+
+Child Class (Derived Class):
+    - The class that inherits features
+
+super():
+    - Used to call parent class methods inside child class
+"""
+
+# ---------------------------------------------------------
+# BASIC SYNTAX OF INHERITANCE
+# ---------------------------------------------------------
+# class ChildClass(ParentClass):
+#     pass
+
+
+# ---------------------------------------------------------
+# EXAMPLE 1: SINGLE INHERITANCE
+# ---------------------------------------------------------
+
+class Phone:
+    """Parent class"""
+
+    def make_call(self):
+        print("Calling...")
+
+
+class SmartPhone(Phone):
+    """Child class inheriting Phone"""
+
+    def browse(self):
+        print("Browsing Internet")
+
+
+# Creating object of child class
+sp = SmartPhone()
+
+# Accessing parent and child methods
+sp.make_call()   # From Phone
+sp.browse()      # From SmartPhone
+
+
+# ---------------------------------------------------------
+# EXAMPLE 2: MULTILEVEL INHERITANCE
+# (Grandparent -> Parent -> Child)
+# ---------------------------------------------------------
+
+class Android(SmartPhone):
+    """Child class inheriting SmartPhone"""
+
+    def play_store(self):
+        print("Opening PlayStore")
+
+
+# Creating object of most derived class
+my_phone = Android()
+
+# Accessing methods from all levels
+my_phone.make_call()    # From Phone
+my_phone.browse()       # From SmartPhone
+my_phone.play_store()   # From Android
+
+"""
+===========================================================
+Topic: Multiple Inheritance in Python
+===========================================================
+
+Multiple Inheritance allows a child class to inherit
+from more than one parent class.
+
+Syntax:
+class ChildClass(Parent1, Parent2):
+    pass
+"""
+
+# ---------------------------------------------------------
+# PARENT CLASS 1
+# ---------------------------------------------------------
+
+class Camera:
+    def take_photo(self):
+        print("Taking photo")
+
+
+# ---------------------------------------------------------
+# PARENT CLASS 2
+# ---------------------------------------------------------
+
+class MusicPlayer:
+    def play_music(self):
+        print("Playing music")
+
+
+# ---------------------------------------------------------
+# CHILD CLASS (MULTIPLE INHERITANCE)
+# ---------------------------------------------------------
+
+class SmartDevice(Camera, MusicPlayer):
+    def internet(self):
+        print("Browsing Internet")
+
+
+# ---------------------------------------------------------
+# OBJECT CREATION
+# ---------------------------------------------------------
+
+device = SmartDevice()
+
+# Accessing methods from both parents
+device.take_photo()     # From Camera
+device.play_music()     # From MusicPlayer
+device.internet()       # From SmartDevice
+
+
+# ---------------------------------------------------------
+# METHOD RESOLUTION ORDER (MRO)
+# ---------------------------------------------------------
+
+class A:
+    def show(self):
+        print("Class A method")
+
+
+class B:
+    def show(self):
+        print("Class B method")
+
+
+class C(A, B):
+    pass
+
+
+obj = C()
+obj.show()   # Calls method from class A (left to right)
+
+# Display Method Resolution Order
+print("\nMethod Resolution Order (MRO):")
+print(C.mro())
+
+
+# ---------------------------------------------------------
+# USING super() WITH CONSTRUCTORS
+# ---------------------------------------------------------
+
+class Device:
+    def __init__(self, brand):
+        self.brand = brand
+
+
+class Mobile(Device):
+    def __init__(self, brand, model):
+        # Call parent class constructor
+        super().__init__(brand)
+        self.model = model
+
+    def show_details(self):
+        print("Brand:", self.brand)
+        print("Model:", self.model)
+
+
+m = Mobile("Samsung", "S23")
+m.show_details()
+
+
+# ---------------------------------------------------------
+# COMMON MISTAKES (EXPLANATION ONLY)
+# ---------------------------------------------------------
+
+"""
+1. Circular Inheritance (NOT ALLOWED)
+
+class A(B):
+    pass
+
+class B(A):
+    pass
+
+This will crash the program because Python cannot decide
+which class to load first.
+"""
+
+
+"""
+2. Forgetting super().__init__()
+
+If the parent class has variables and you override __init__
+in the child class without calling super(), parent data
+will NOT be initialized and cause AttributeError.
+"""
+
+
+# ---------------------------------------------------------
+# SUMMARY
+# ---------------------------------------------------------
+
+"""
+✔ Inheritance helps reuse code
+✔ Child class can access parent class methods
+✔ Multilevel inheritance is allowed
+✔ super() is important for constructors
+✘ Circular inheritance is not allowed
+"""
+
+print("\n--- Program Finished Successfully ---")
+
 ===================================================================
 Topic 4: Inheritance (Single & Multilevel)
 ===================================================================

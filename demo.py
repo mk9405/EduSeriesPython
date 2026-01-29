@@ -1,14 +1,25 @@
 class Car:
-    brand = "toyota"
-    color = "white"
+    def __init__(self):
+        pass
 
-class Car2:
-    brand = "Rolls Royce"
-    color = "black"
+    def drive(self):
+        print("driving..")
+    
+    def stop(self):
+        print("stoped...")
+
+class LandRover(Car):
+    def playMusic():
+        print("Music playing...")
 
 
-car1 = Car()
-car2 = Car2()
+class RangRover(Car):
+    def playMovie():
+        print("playMovie...")
 
-print(car1.brand)
-print(car2.color)
+class RangRover1(Car):
+    def playMovie1():
+        print("playMovie...")
+
+lr = LandRover()
+print(lr.drive())
