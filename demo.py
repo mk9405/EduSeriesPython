@@ -1,25 +1,12 @@
-class Car:
-    def __init__(self):
-        pass
+class Adding:
+    def __init__(self, name):
+        print("name ", name)
+        
 
-    def drive(self):
-        print("driving..")
+    def __sub__(self, b):
+        return b
     
-    def stop(self):
-        print("stoped...")
+a = Adding("manoj")
 
-class LandRover(Car):
-    def playMusic():
-        print("Music playing...")
+print(a.__sub__(2 - 1))
 
-
-class RangRover(Car):
-    def playMovie():
-        print("playMovie...")
-
-class RangRover1(Car):
-    def playMovie1():
-        print("playMovie...")
-
-lr = LandRover()
-print(lr.drive())
