@@ -36,7 +36,7 @@ class Shape(ABC):
     Note:
     This class cannot be used to create objects directly.
     """
-
+   
     @abstractmethod  # decorator
     def calculate_area(self):
         """

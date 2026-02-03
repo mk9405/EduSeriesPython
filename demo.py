@@ -1,12 +1,30 @@
-class Adding:
-    def __init__(self, name):
-        print("name ", name)
-        
+class Payment:
+    def pay(self, amount):
+        raise NotImplementedError("Pay method must be implemented")
 
-    def __sub__(self, b):
-        return b
-    
-a = Adding("manoj")
+class CreditCard(Payment):
+    def pay(self, amount):
+        print(f"Paid {amount} using Credit Card")
 
-print(a.__sub__(2 - 1))
+class UPI(Payment):
+    def pay(self, amount):
+        print(f"Paid {amount} using UPI")
 
+class NetBanking(Payment):
+    def pay(self, amount):
+        print(f"Paid {amount} using Net Banking")
+
+class Cash(Payment):
+    def pay(self, amount):
+        print(f"Paid {amount} using Cash")
+
+# Polymorphic behavior
+payments = [
+    CreditCard(),
+    UPI(),
+    NetBanking(),
+    Cash()
+]
+
+for payment in payments:
+    payment.pay(1000)
